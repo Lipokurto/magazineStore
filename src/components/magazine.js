@@ -10,7 +10,7 @@ const Magazine =(props)=> {
     let goodsListMagazin = magazineGoods.map((el) => {
         return (
             <>
-                <Good name={el.name} price={el.price} id={el.id} count={el.count}/>
+                <Good name={el.name} price={el.price} id={el.id} count={el.count} img={el.img}/>
             </>
         )
     })

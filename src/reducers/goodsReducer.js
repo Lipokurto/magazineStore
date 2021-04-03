@@ -1,13 +1,21 @@
+import tv from '../img/01_TV.jpg'
+import freeze from '../img/02_freeze.jpg'
+import car from '../img/03_car.jpg'
+import dall from '../img/04_dall.jpg'
+import dress from '../img/05_dress.jpg'
+import jeanse from '../img/06_jeanse.jpg'
+import baletki from '../img/07_baletki.jpg'
+
 
 let initialState = {
     goods: [
-            {id:1,name:'Телевизор',count:10,price:100},
-            {id:2,name:'Холодильник',count:5,price:70},
-            {id:3,name:'Машинка',count: 50,price: 5},
-            {id:4,name:'Кукла',count: 15,price:10},
-            {id:5,name:'Платье',count: 10,price: 25},
-            {id:6,name:'Джинсы',count: 10,price: 25},
-            {id:7,name:'Балетки',count: 15,price: 7},
+            {id:1, name:'Телевизор', count:10, price:100, img:tv},
+            {id:2, name:'Холодильник', count:5, price:70, img:freeze},
+            {id:3, name:'Машинка', count:50, price:5, img:car},
+            {id:4, name:'Кукла', count:15, price:10, img:dall},
+            {id:5, name:'Платье', count:10, price:25, img:dress},
+            {id:6, name:'Джинсы', count:10, price:25, img:jeanse},
+            {id:7, name:'Балетки', count:15, price:7, img:baletki},
         ],
     korzina: []              
 }

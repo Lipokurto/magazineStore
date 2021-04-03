@@ -27,19 +27,14 @@ const Good =(props)=> {
     },[restOnStore,wishCount])
 
     return (
-            // <div className='row row-cols-1 row-cols-md-3 g-4'>
-                // <div className="col-sm-6">
-                    // <div className='col'>
-                        <div className="order-3 p-2 bd-highlight border border-success rounded ">
-                            <h5 className="card-title">{props.name}</h5>
-                            <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
-                            <p className="card-text">Цена: {props.price}</p>
-                            <p className="card-text"><button className="btn btn-outline-success" onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id))}>В корзину</button></p>
-                            <>{countError ?<p className="card-text">На складе нет такого количества товаров</p>:null}</>
-                        </div>
-                    // </div>
-                // </div>
-            // </div>
+            <div className="order-3 p-1 h-150 bd-highlight border border-success rounded ">
+                <h5 className="card-title">{props.name}</h5>
+                <img src={props.img} className="p-1 h-50 card-img-top" alt=""></img>
+                <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
+                <p className="card-text">Цена: {props.price}</p>
+                <p className="card-text"><button className="btn btn-outline-success" onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id))}>В корзину</button></p>
+                <>{countError ?<p className="card-text">На складе нет такого количества товаров</p>:null}</>
+            </div>
     )
 }
 export default Good
