@@ -4,7 +4,7 @@ import GoodsStore from './components/goodsStore';
 import Korzina from './components/korzina';
 import Magazine from './components/magazine';
 import {BrowserRouter,NavLink,Route} from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
@@ -12,15 +12,17 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+      <div className="btn-group" role="group">
         <NavLink to='/goodstore'>
-          <Button>Склад</Button>
+          <button className='btn btn-outline-secondary'>Склад</button>
         </NavLink>
         <NavLink to='/magazine'>
-          <Button>Магазин</Button>
+          <button className='btn btn-outline-secondary'>Магазин</button>
         </NavLink>
         <NavLink to='/korzina'>
-          <Button>Корзина</Button>
+          <button className='btn btn-outline-secondary'>Корзина</button>
         </NavLink>
+        </div>
         <Route exact path='/goodstore'>
           <GoodsStore />
         </Route>

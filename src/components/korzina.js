@@ -5,20 +5,34 @@ const Korzina =(props)=> {
 
     let wishListkorzina = useSelector(state => state.goodsReducer.korzina)
     let dispatch = useDispatch()
-    let wishList = wishListkorzina.map((el)=> {
+    let wishList = wishListkorzina.map((el,i)=> {
         return (
-            <div>
-                Товар: {el.name} Количество: {el.count} 
-                <button onClick={()=>{dispatch(removeWishGood(el.id,el.count))}}>Убрать из корзины</button>
-            </div>
+            <tr>
+                <th scope="row">{i+1}</th>
+                <td>{el.name}</td>
+                <td>{el.count} </td>
+                <td>тут будет цена</td>
+                <td><button className='btn btn-outline-danger' onClick={()=>{dispatch(removeWishGood(el.id,el.count))}}>Х</button></td>
+            </tr>
         )
     })
 return (
     <div>
-        тут корзина
-        <div>
-            {wishList}
-        </div>
+        <h1>Корзина</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Товар</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Убрать</th>
+                </tr>
+            </thead>
+            <tbody>
+                {wishList}
+            </tbody>
+        </table>
     </div>
 )
 }

@@ -1,7 +1,7 @@
 
 import {  useSelector } from "react-redux"
 import Good from "./Good"
-import { Card} from 'react-bootstrap'
+// import { Card} from 'react-bootstrap'
 const Magazine =(props)=> {
     let magazineGoods = useSelector(state =>state.goodsReducer.goods)
     
@@ -9,16 +9,18 @@ const Magazine =(props)=> {
     //оболочка для вывода всех товаров в магазине
     let goodsListMagazin = magazineGoods.map((el) => {
         return (
-            <Card>
+            <>
                 <Good name={el.name} price={el.price} id={el.id} count={el.count}/>
-            </Card>
+            </>
         )
     })
 
     return (
         <div>
-            <label>Магазин</label>
-            {goodsListMagazin}
+            <h1>Магазин</h1>
+            <div className="row row-cols-1 row-cols-md-4 g-4">
+                {goodsListMagazin}
+            </div>
         </div>
     )
 }
