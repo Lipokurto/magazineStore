@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import {getWishGood} from '../actions/index'
@@ -24,7 +25,7 @@ const Good =(props)=> {
     //добавляем проверку наличия достаточного количества товара на складе
     useEffect(()=> {
         ((restOnStore) < 0) ? setCountError(true) : setCountError(false)
-    },[restOnStore])
+    },[restOnStore,wishCount])
 
     return (
         <div>
@@ -37,7 +38,7 @@ const Good =(props)=> {
             <div>
                 Всего: {wishCount * props.price}
             </div>
-        <button onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id))}>В корзину</button>
+        <Button onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id))}>В корзину</Button>
         </div>
         <>
             {countError

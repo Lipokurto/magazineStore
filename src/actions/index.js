@@ -12,3 +12,11 @@ export const getWishGood =(name,getWishGood,restOnStore,goodId) => {
         restStore:restOnStore
     }
 }
+
+export const removeWishGood =(getId,WishCount)=> {
+    return {
+        type: 'REMOVE_WISH_GOOD',
+        returnId:getId,
+        returnCount:WishCount
+    }
+}
