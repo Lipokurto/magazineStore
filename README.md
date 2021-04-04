@@ -35,7 +35,7 @@ GET_ALL_LIST_GOODS - первичный запрос на сервер
 Для имитации отклика с сервера использовался репозиторий json-server: https://github.com/typicode/json-server
 
 Для запсука сервера:
-1. Перейдите в папку server-api
+1. Создать папку server-api
 2. Установите json-server: npm i --save json-server
 3. В файле package.json измените значение ключа Script по примеру:
 
@@ -54,5 +54,5 @@ GET_ALL_LIST_GOODS - первичный запрос на сервер
     в какому афле хранится отклик(-w db.json)
 
     файл db.json должен лежать в той же папке что и package.json
-    
+
 4. Запустите сервер: npm start
