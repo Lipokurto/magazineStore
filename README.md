@@ -1,9 +1,13 @@
 Репозиторий расположен в открытом доступе по адресу https://github.com/Lipokurto/magazineStore
+
 Автор Alex Sin 
 
 Magazin => Client part
+
 ReactJs + Redax
+
 Обращение к серверу: axios
+
 Стили: Bootstrap
 
 Используемые хуки:
@@ -19,7 +23,7 @@ GET_ALL_LIST_GOODS - первичный запрос на сервер
 Картинки подтягиваются прямыми ссылками с ресурса https://game-icons.net/
 
 Для имитации отклика с сервера использовался репозиторий json-server: https://github.com/typicode/json-server
-для запсука сервера:
+Lля запсука сервера:
 1. Перейдите в папку server-api
 2. Установите json-server: npm i --save json-server
 3. В файле package.json измените значение ключа Script по примеру:
