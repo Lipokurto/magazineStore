@@ -1,11 +1,11 @@
-
-import {  useSelector } from "react-redux"
+import {   useSelector } from "react-redux"
 import Good from "./Good"
-// import { Card} from 'react-bootstrap'
+
+// Компонента для отрисовки всего магазина
 const Magazine =(props)=> {
-    let magazineGoods = useSelector(state =>state.goodsReducer.goods)
-    
     //оболочка для вывода всех товаров в магазине
+    let magazineGoods = useSelector(state =>state.goods)
+    
     let goodsListMagazin = magazineGoods.map((el) => {
         return (
             <>

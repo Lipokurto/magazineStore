@@ -4,10 +4,21 @@ import GoodsStore from './components/goodsStore';
 import Korzina from './components/korzina';
 import Magazine from './components/magazine';
 import {BrowserRouter,NavLink,Route} from 'react-router-dom'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useEffect } from 'react';
+import axios from 'axios'
+import { useDispatch } from 'react-redux';
+import {getAllListGoods} from './actions/index'
 
 function App() {
+
+  let dispatch = useDispatch()
+  // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store 
+  useEffect(()=> {
+    axios.get('http://localhost:3006/goods').then((res)=> {
+      dispatch(getAllListGoods(res.data))
+    })
+  },[])
 
   return (
     <BrowserRouter>
@@ -23,7 +34,7 @@ function App() {
           <button className='btn btn-outline-secondary'>Корзина</button>
         </NavLink>
         </div>
-        <Route exact path='/goodstore'>
+        <Route path='/goodstore'>
           <GoodsStore />
         </Route>
         <Route path='/magazine'>

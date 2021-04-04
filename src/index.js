@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {createStore} from 'redux'
+import { createStore} from 'redux'
 import {Provider} from 'react-redux'
-import rootReducer from './reducers/indexReducer';
+import goodsReducer from './reducers/goodsReducer';
 
 
-const myStore = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+// создаем store и подулючаем расширение для devTools
+const myStore = createStore(goodsReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
   <Provider store={myStore}>

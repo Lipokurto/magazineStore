@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from "react-redux"
 
+// компонента для отрисовки скалада
 const GoodsStore =(props)=> {
-    let goods = useSelector(state => state.goodsReducer.goods)
 
+    let goods = useSelector(state => state.goods)
     let goodsListElectro = goods.map((el,i)=> {
         return (
             <tr>

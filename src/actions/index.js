@@ -14,13 +14,24 @@ export const getWishGood =(name,getWishGood,restOnStore,goodId,wishPrice) => {
         wishPrice:wishPrice
     }
 }
-
-export const removeWishGood =(getId,WishCount,returnPrice,returnName)=> {
+//Удаляем из корзины, передаем значения:
+// WishCount - нужендля возврата количества на склад
+// returnPrice - нужен для рассчета остатка суммы после удаления товара
+// returnName - нужен для поиска по ID
+export const removeWishGood =(WishCount,returnPrice,returnName)=> {
     return {
         type: 'REMOVE_WISH_GOOD',
-        returnId:getId,
         returnCount:WishCount,
         returnPrice,
         returnName
+    }
+}
+
+// Первичный запрос листа товаров для создания Store
+// goodsList - полученный лист товаров
+export const getAllListGoods =(goodsList)=> {
+    return {
+        type:'GET_ALL_LIST_GOODS',
+        goodsList
     }
 }

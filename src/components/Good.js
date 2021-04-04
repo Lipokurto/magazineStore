@@ -35,7 +35,7 @@ const Good =(props)=> {
     return (
             <div className="order-3 p-1 h-150 bd-highlight border border-success rounded ">
                 <h5 className="card-title">{props.name}</h5>
-                <img src={props.img} className="p-1 h-50 card-img-top" alt=""></img>
+                <img src={props.img} className="p-1 h-50 rounded-lg" alt=""></img>
                 <p className="card-text">Цена: {props.price}</p>
                 <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
                 <p className="card-text">Цена заказа: {wishPrice}</p>
