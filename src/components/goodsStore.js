@@ -18,7 +18,7 @@ const GoodsStore =(props)=> {
 
 return (
     <div>
-        <h1>Склад</h1>
+        <h1 className='alert alert-primary'>Склад</h1>
         <table class="table table-hover">
             <thead>
                 <tr>

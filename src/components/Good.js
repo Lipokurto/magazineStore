@@ -33,15 +33,19 @@ const Good =(props)=> {
     },[wishCount,props.price])
 
     return (
-            <div className="order-3 p-1 h-150 bd-highlight border border-success rounded ">
-                <h5 className="card-title">{props.name}</h5>
-                <img src={props.img} className="p-1 h-50 rounded-lg" alt=""></img>
-                <p className="card-text">Цена: {props.price}</p>
-                <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
-                <p className="card-text">Цена заказа: {wishPrice}</p>
-                <p className="card-text"><button className="btn btn-outline-success" onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id,wishPrice))}>В корзину</button></p>
-                <>{countError ?<p className="card-text">На складе нет такого количества товаров</p>:null}</>
+        <div className='w-500'>
+            <div className='col-sm-12'>
+                <div className="card h-150 w-200 p-3 border border-success rounded-3">
+                    <h3 className="card-title">{props.name}</h3>
+                    <img src={props.img} className="p-2 h-25" alt=""></img>
+                    <h5 className="card-text">Цена: {props.price}</h5>
+                    <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
+                    <p className="card-text">Цена заказа: {wishPrice}</p>
+                    <p className="card-text"><button className="btn btn-outline-success" onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id,wishPrice))}>В корзину</button></p>
+                    <>{countError ?<p className="card-text">На складе нет такого количества товаров</p>:null}</>
+                </div>
             </div>
+        </div>
     )
 }
 export default Good

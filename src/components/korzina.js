@@ -18,7 +18,7 @@ const Korzina =(props)=> {
     })
 return (
     <div>
-        <h1>Корзина</h1>
+        <h1 className='alert alert-primary'>Корзина</h1>
         {globPrice !== 0 ? 
         <div>
         <table class="table table-hover">

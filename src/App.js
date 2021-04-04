@@ -1,4 +1,3 @@
-
 import './App.css';
 import GoodsStore from './components/goodsStore';
 import Korzina from './components/korzina';
@@ -25,13 +24,13 @@ function App() {
       <div className="App">
       <div className="btn-group" role="group">
         <NavLink to='/goodstore'>
-          <button className='btn btn-outline-secondary'>Склад</button>
+          <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/archive.svg' alt=''/> Склад</button>
         </NavLink>
         <NavLink to='/magazine'>
-          <button className='btn btn-outline-secondary'>Магазин</button>
+          <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/check2-square.svg' alt=''/> Магазин</button>
         </NavLink>
         <NavLink to='/korzina'>
-          <button className='btn btn-outline-secondary'>Корзина</button>
+          <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/cart.svg' alt=''/> Корзина</button>
         </NavLink>
         </div>
         <Route path='/goodstore'>
