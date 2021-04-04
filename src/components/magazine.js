@@ -5,12 +5,17 @@ import Good from "./Good"
 const Magazine =(props)=> {
     let magazineGoods = useSelector(state =>state.goodsReducer.goods)
     
-
     //оболочка для вывода всех товаров в магазине
     let goodsListMagazin = magazineGoods.map((el) => {
         return (
             <>
-                <Good name={el.name} price={el.price} id={el.id} count={el.count} img={el.img}/>
+                <Good 
+                    name={el.name} 
+                    price={el.price} 
+                    id={el.id} 
+                    count={el.count} 
+                    img={el.img}
+                    />
             </>
         )
     })

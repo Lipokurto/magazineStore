@@ -17,7 +17,8 @@ let initialState = {
             {id:6, name:'Джинсы', count:10, price:25, img:jeanse},
             {id:7, name:'Балетки', count:15, price:7, img:baletki},
         ],
-    korzina: []              
+    korzina: [],
+    globalPrice:0
 }
 
 
@@ -27,22 +28,26 @@ const goodsReducer =(state = initialState,action)=> {
             const findDouble = state.korzina.find(el => el.id === action.newId)
             const booDouble = state.korzina.some(el => el.id === action.newId)
             if (!booDouble) {
-                    return {
-                        goods:[state.goods.map((element) => {
-                            return (element.id === action.newId ? element.count = action.restStore : element)
+                return {
+                    goods:[state.goods.map((element) => {
+                        return (element.id === action.newId ? element.count = action.restStore : element)
                         })], 
                         ...state,
-                        korzina:[...state.korzina,{id:action.newId,name:action.wishName,count:action.wishCount}]
+                        korzina:[...state.korzina,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
+                        globalPrice:state.globalPrice + action.wishPrice
                         }
                     } else {
-                        findDouble.count += action.wishCount
-                        return {
-                            goods:[state.goods.map((element) => {
-                                return (element.id === action.newId ? element.count -= action.wishCount  : element)
-                            })], 
-                            ...state,
-                            korzina:[...state.korzina.filter(el => el.id !== action.newId).concat(findDouble)]
-                            }  
+                    findDouble.count += action.wishCount
+                    findDouble.price += action.wishPrice
+                    return {
+                        goods:[state.goods.map((element) => {
+                            return (element.id === action.newId ? (element.count -= action.wishCount) : element)
+                        })], 
+                        ...state,
+                        korzina:[...state.korzina.filter(el => el.id !== action.newId).concat(findDouble)],
+                        globalPrice:state.globalPrice + action.wishPrice
+
+                        }  
                     }
                 }
 
@@ -53,8 +58,9 @@ const goodsReducer =(state = initialState,action)=> {
                         return (element.id === action.returnId ? element.count = element.count + action.returnCount : element)
                     })],
                     ...state,
-                    korzina:[...state.korzina.filter(element => element.id !== action.returnId && element.count !== action.returnCount)]
-                }
+                    korzina:[...state.korzina.filter(element => element.name !== action.returnName)],
+                    globalPrice:state.globalPrice - action.returnPrice
+                }   
             }
         default:
             return state
