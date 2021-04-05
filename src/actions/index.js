@@ -18,10 +18,11 @@ export const getWishGood =(name,getWishGood,restOnStore,goodId,wishPrice) => {
 // WishCount - нужендля возврата количества на склад
 // returnPrice - нужен для рассчета остатка суммы после удаления товара
 // returnName - нужен для поиска по ID
-export const removeWishGood =(WishCount,returnPrice,returnName)=> {
+export const removeWishGood =(returnCount,returnPrice,returnName,returnId)=> {
     return {
         type: 'REMOVE_WISH_GOOD',
-        returnCount:WishCount,
+        returnId,
+        returnCount,
         returnPrice,
         returnName
     }

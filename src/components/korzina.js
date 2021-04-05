@@ -12,7 +12,7 @@ const Korzina =(props)=> {
                 <td>{el.name}</td>
                 <td>{el.count} </td>
                 <td>{el.price}</td>
-                <td><button className='btn btn-outline-danger' onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name))}}>Х</button></td>
+                <td><button className='btn btn-outline-danger' onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name,el.id))}}>Х</button></td>
             </tr>
         )
     })

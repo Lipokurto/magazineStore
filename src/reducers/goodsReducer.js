@@ -60,6 +60,8 @@ const goodsReducer =(state = initialState,action)=> {
                 }
         // Удаляем товары из корзины           
         case 'REMOVE_WISH_GOOD': {
+                // console.log(action.returnCount)
+                console.log(action.returnId)
                 return {
                     goods:[state.goods.map((element) => {
                         return (element.id === action.returnId ? element.count = element.count + action.returnCount : element)

@@ -25,6 +25,7 @@ const Good =(props)=> {
     useEffect(()=> {
             ((restOnStore) < 0) ? setCountError(true) : setCountError(false)
     },[wishCount,restOnStore])
+    
     //перекидываем в локальный стейт общую стоимость заказа
     useEffect(()=> {
         setWishPrice(props.price * wishCount)
