@@ -30,9 +30,6 @@ const Good =(props)=> {
         setWishPrice(props.price * wishCount)
     },[wishCount,props.price])
 
-    // useEffect(()=> {
-    // })
-
     return (
         <div className='w-500'>
             <div className='col-sm-12'>
