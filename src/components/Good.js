@@ -3,12 +3,10 @@ import { useDispatch } from "react-redux"
 import {getWishGood} from '../actions/index'
 
 const Good =(props)=> {
-
     let dispatch = useDispatch()
     const [wishCount,setWishCount] = useState(0)
     const [countError,setCountError] = useState(false)
     const [wishPrice,setWishPrice] = useState(0)
-    
     //повышение и понижение количества товаров
     const inc =()=> {
         return setWishCount(wishCount + 1)
@@ -19,18 +17,21 @@ const Good =(props)=> {
             return setWishCount(wishCount - 1)
         }
     }
-    
+
     //Считаем сколько осталось в магазине (остаток рассчитывается тут что б при отпарвке товара в корзимну происходила проверка на наличие нужного количества товара на складе)
     let restOnStore = props.count - wishCount
-    
+
     //добавляем проверку наличия достаточного количества товара на складе
     useEffect(()=> {
         ((restOnStore) < 0) ? setCountError(true) : setCountError(false)
-    },[restOnStore,wishCount])
+    },[wishCount,restOnStore])
     //перекидываем в локальный стейт общую стоимость заказа
     useEffect(()=> {
         setWishPrice(props.price * wishCount)
     },[wishCount,props.price])
+
+    // useEffect(()=> {
+    // })
 
     return (
         <div className='w-500'>
@@ -41,8 +42,10 @@ const Good =(props)=> {
                     <h5 className="card-text">Цена: {props.price}</h5>
                     <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
                     <p className="card-text">Цена заказа: {wishPrice}</p>
-                    <p className="card-text"><button className="btn btn-outline-success" onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id,wishPrice))}>В корзину</button></p>
-                    <>{countError ?<p className="card-text">На складе нет такого количества товаров</p>:null}</>
+                    <>{countError 
+                    ? <p className="card-text">На складе нет такого количества товаров</p>
+                    :<p className="card-text"><button className="btn btn-outline-success" id='btn' onClick={()=>dispatch(getWishGood(props.name,wishCount,restOnStore,props.id,wishPrice))}>В корзину</button></p>
+                    }</>
                 </div>
             </div>
         </div>

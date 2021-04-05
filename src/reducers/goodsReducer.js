@@ -1,13 +1,13 @@
-import tv from '../img/01_TV.jpg'
-import freeze from '../img/02_freeze.jpg'
-import car from '../img/03_car.jpg'
-import dall from '../img/04_dall.jpg'
-import dress from '../img/05_dress.jpg'
-import jeanse from '../img/06_jeanse.jpg'
-import baletki from '../img/07_baletki.jpg'
+// Закомментированные элементы - локальный стор который можно вернуть в строй что б не поднимать сервер и работать локально
+// import tv from '../img/01_TV.jpg'
+// import freeze from '../img/02_freeze.jpg'
+// import car from '../img/03_car.jpg'
+// import dall from '../img/04_dall.jpg'
+// import dress from '../img/05_dress.jpg'
+// import jeanse from '../img/06_jeanse.jpg'
+// import baletki from '../img/07_baletki.jpg'
 
 // Первичный Store для инициализиации приложения - пустой, далее будет заменен на ответ сервера
-// Закомментированные элементы - локальный стор который можно вернуть в строй что б не поднимать сервер и работать локально
 
 let initialState = {
     goods: [],

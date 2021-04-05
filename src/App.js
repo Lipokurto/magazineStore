@@ -17,7 +17,7 @@ function App() {
     axios.get('http://localhost:3006/goods').then((res)=> {
       dispatch(getAllListGoods(res.data))
     })
-  },[])
+  },[dispatch])
 
   return (
     <BrowserRouter>
