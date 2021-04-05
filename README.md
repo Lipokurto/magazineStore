@@ -1,6 +1,6 @@
 Репозиторий расположен в открытом доступе по адресу https://github.com/Lipokurto/magazineStore
 
-Автор Alex Sin 
+Автор Alex Sin (https://vk.com/alex_sin_cube)
 
 Magazin => Client part
 
