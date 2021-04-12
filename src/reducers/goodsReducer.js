@@ -1,25 +1,16 @@
-// Закомментированные элементы - локальный стор который можно вернуть в строй что б не поднимать сервер и работать локально
-// import tv from '../img/01_TV.jpg'
-// import freeze from '../img/02_freeze.jpg'
-// import car from '../img/03_car.jpg'
-// import dall from '../img/04_dall.jpg'
-// import dress from '../img/05_dress.jpg'
-// import jeanse from '../img/06_jeanse.jpg'
-// import baletki from '../img/07_baletki.jpg'
-
 // Первичный Store для инициализиации приложения - пустой, далее будет заменен на ответ сервера
 
 let initialState = {
-    goods: [],
-    // [
-    //     {id:1, name:'Телевизор', count:10, price:100, img:tv},
-    //     {id:2, name:'Холодильник', count:5, price:70, img:freeze},
-    //     {id:3, name:'Машинка', count:50, price:5, img:car},
-    //     {id:4, name:'Кукла', count:15, price:10, img:dall},
-    //     {id:5, name:'Платье', count:10, price:25, img:dress},
-    //     {id:6, name:'Джинсы', count:10, price:25, img:jeanse},
-    //     {id:7, name:'Балетки', count:15, price:7, img:baletki},
-    // ],
+    goods: 
+    [
+        {id:1, name:'Телевизор', count:10, price:100, img:'https://game-icons.net/icons/ffffff/000000/1x1/delapouite/tv.svg'},
+        {id:2, name:'Холодильник', count:5, price:70, img:'https://game-icons.net/icons/ffffff/000000/1x1/delapouite/thermometer-cold.svg'},
+        {id:3, name:'Машинка', count:50, price:5, img:'https://game-icons.net/icons/ffffff/000000/1x1/skoll/jeep.svg'},
+        {id:4, name:'Кукла', count:15, price:10, img:'https://game-icons.net/icons/ffffff/000000/1x1/lorc/voodoo-doll.svg'},
+        {id:5, name:'Платье', count:10, price:25, img:'https://game-icons.net/icons/ffffff/000000/1x1/delapouite/travel-dress.svg'},
+        {id:6, name:'Джинсы', count:10, price:25, img:'https://game-icons.net/icons/ffffff/000000/1x1/lorc/trousers.svg'},
+        {id:7, name:'Балетки', count:15, price:7, img:'https://game-icons.net/icons/ffffff/000000/1x1/delapouite/ballerina-shoes.svg'},
+    ],
     korzina: [],
     globalPrice:0
 }
@@ -60,8 +51,6 @@ const goodsReducer =(state = initialState,action)=> {
                 }
         // Удаляем товары из корзины           
         case 'REMOVE_WISH_GOOD': {
-                // console.log(action.returnCount)
-                console.log(action.returnId)
                 return {
                     goods:[state.goods.map((element) => {
                         return (element.id === action.returnId ? element.count = element.count + action.returnCount : element)

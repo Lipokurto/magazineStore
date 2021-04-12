@@ -1,15 +1,18 @@
 import './App.css';
 import GoodsStore from './components/goodsStore';
-import Korzina from './components/korzina';
+// import Korzina from './components/korzina';
 import Magazine from './components/magazine';
-import {BrowserRouter,NavLink,Route} from 'react-router-dom'
+import {BrowserRouter,NavLink,Redirect,Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect } from 'react';
 import axios from 'axios'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {getAllListGoods} from './actions/index'
+import LIlKorzina from './components/LilKorzina';
 
 function App() {
+  // проверка на наличии товаров в корзине
+  const isEmptyKorzina = useSelector(state =>state.korzina)
 
   let dispatch = useDispatch()
   // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store 
@@ -26,22 +29,15 @@ function App() {
         <NavLink to='/goodstore'>
           <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/archive.svg' alt=''/> Склад</button>
         </NavLink>
-        <NavLink to='/magazine'>
+        <NavLink exact to='/magazine'>
           <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/check2-square.svg' alt=''/> Магазин</button>
         </NavLink>
-        <NavLink to='/korzina'>
-          <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/cart.svg' alt=''/> Корзина</button>
-        </NavLink>
+        {/* Если товаров в корзине нет - не показыывать значок корзины */}
+        {isEmptyKorzina.length !== 0 ? <LIlKorzina className='text-right'/> : null}
         </div>
-        <Route path='/goodstore'>
-          <GoodsStore />
-        </Route>
-        <Route path='/magazine'>
-          <Magazine />
-        </Route>
-        <Route path='/korzina'>
-          <Korzina />
-        </Route>
+        <Route exact path='/goodstore'><GoodsStore /></Route>
+        <Route exact path='/magazine'><Magazine /></Route>
+        <Redirect to="/magazine" />
       </div>
     </BrowserRouter>
   );
