@@ -21,13 +21,11 @@ const goodsReducer =(state = initialState,action)=> {
         case 'GET_WISH_GOOD': {
             // выделяем объект с совпадение по id, если его нет - пропускаем этот шаг
             const findDouble = state.korzina.find(el => el.id === action.newId) 
-            // Определяем общее наличие совпадений по id в корзине
-            const booDouble = state.korzina.some(el => el.id === action.newId)
-            if (!booDouble) {
+            if (!findDouble) {
                 return {
-                    goods:[state.goods.map((element) => {
+                    goods:state.goods.map((element) => {
                         return (element.id === action.newId ? element.count = action.restStore : element)
-                        })], 
+                        }), 
                         ...state,
                         korzina:[...state.korzina,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
                         globalPrice:state.globalPrice + action.wishPrice
@@ -37,10 +35,10 @@ const goodsReducer =(state = initialState,action)=> {
                     findDouble.count += action.wishCount
                     findDouble.price += action.wishPrice
                     return {
-                        goods:[state.goods.map((element) => {
+                        goods:state.goods.map((element) => {
                             // ищем в массиве конкретный элемент с совпадающим id если он найден то вычетаем желаемое количество товара из позиции этого товара на складе
                             return (element.id === action.newId ? (element.count -= action.wishCount) : element)
-                        })], 
+                        }), 
                         // копируем state и фильтруем по неравенству id удаляя тем самым совпадающий элемент, и возвращаем его с обноавленным значением количества из переменной findDouble
                         ...state,
                         korzina:[...state.korzina.filter(el => el.id !== action.newId).concat(findDouble)],
@@ -52,9 +50,9 @@ const goodsReducer =(state = initialState,action)=> {
         // Удаляем товары из корзины           
         case 'REMOVE_WISH_GOOD': {
                 return {
-                    goods:[state.goods.map((element) => {
+                    goods:state.goods.map((element) => {
                         return (element.id === action.returnId ? element.count = element.count + action.returnCount : element)
-                    })],
+                    }),
                     ...state,
                     korzina:[...state.korzina.filter(element => element.name !== action.returnName)],
                     globalPrice:state.globalPrice - action.returnPrice

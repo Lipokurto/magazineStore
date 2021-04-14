@@ -1,0 +1,472 @@
+Index: src/actions/index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/actions/index.js b/src/actions/index.js
+--- a/src/actions/index.js	(revision ac89c806a9061416311e6f2bfe5d1da3886aa3ed)
++++ b/src/actions/index.js	(date 1617776553903)
+@@ -1,38 +1,37 @@
+-export const getWishGood =(name,getWishGood,restOnStore,goodId,wishPrice) => {
+-    return {
+-        //передаем значения:
+-        // goodId (для поимки нужного товара в store), 
+-        // name (для отображения названия товара в корзин),
+-        // getWishGood(для количества желаемого товара), 
+-        // restOnStore (количество оставшегося товара на складе)
+-        // wishPrice (цена заказа)
+-        type: 'GET_WISH_GOOD',
+-        newId:goodId,
+-        wishName:name,
+-        wishCount:getWishGood,
+-        restStore:restOnStore,
+-        wishPrice:wishPrice
+-    }
+-}
++export const getWishGood = (name, getWishGood, restOnStore, goodId, wishPrice) => ({
++	//передаем значения:
++	// goodId (для поимки нужного товара в store),
++	// name (для отображения названия товара в корзин),
++	// getWishGood(для количества желаемого товара),
++	// restOnStore (количество оставшегося товара на складе)
++	// wishPrice (цена заказа)
++	type: 'GET_WISH_GOOD',
++	newId: goodId,
++	wishName: name,
++	wishCount: getWishGood,
++	restStore: restOnStore,
++	wishPrice: wishPrice
++});
++
+ //Удаляем из корзины, передаем значения:
+ // WishCount - нужендля возврата количества на склад
+ // returnPrice - нужен для рассчета остатка суммы после удаления товара
+ // returnName - нужен для поиска по ID
+-export const removeWishGood =(returnCount,returnPrice,returnName,returnId)=> {
+-    return {
+-        type: 'REMOVE_WISH_GOOD',
+-        returnId,
+-        returnCount,
+-        returnPrice,
+-        returnName
+-    }
+-}
++export const removeWishGood = (returnCount, returnPrice, returnName, returnId) => {
++	return {
++		type: 'REMOVE_WISH_GOOD',
++		returnId,
++		returnCount,
++		returnPrice,
++		returnName
++	};
++};
+ 
+ // Первичный запрос листа товаров для создания Store
+ // goodsList - полученный лист товаров
+-export const getAllListGoods =(goodsList)=> {
+-    return {
+-        type:'GET_ALL_LIST_GOODS',
+-        goodsList
+-    }
+-}
+\ No newline at end of file
++export const getAllListGoods = (goodsList) => {
++	return {
++		type: 'GET_ALL_LIST_GOODS',
++		goodsList
++	};
++};
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package.json b/package.json
+--- a/package.json	(revision ac89c806a9061416311e6f2bfe5d1da3886aa3ed)
++++ b/package.json	(date 1617775211569)
+@@ -8,6 +8,7 @@
+     "@testing-library/user-event": "^12.8.3",
+     "axios": "^0.21.1",
+     "bootstrap": "^4.6.0",
++    "json-server": "^0.16.3",
+     "react": "^17.0.2",
+     "react-bootstrap": "^1.5.2",
+     "react-dom": "^17.0.2",
+@@ -19,7 +20,8 @@
+     "web-vitals": "^1.1.1"
+   },
+   "scripts": {
+-    "start": "react-scripts start",
++    "startServer": "json-server -p 3006 -w db.json",
++    "start": "npm run startServer & react-scripts start",
+     "build": "react-scripts build",
+     "test": "react-scripts test",
+     "eject": "react-scripts eject"
+Index: src/App.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/App.js b/src/App.js
+--- a/src/App.js	(revision ac89c806a9061416311e6f2bfe5d1da3886aa3ed)
++++ b/src/App.js	(date 1617694455505)
+@@ -12,7 +12,7 @@
+ function App() {
+ 
+   let dispatch = useDispatch()
+-  // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store 
++  // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store
+   useEffect(()=> {
+     axios.get('http://localhost:3006/goods').then((res)=> {
+       dispatch(getAllListGoods(res.data))
+Index: src/components/magazine.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/magazine.js b/src/components/magazine.js
+--- a/src/components/magazine.js	(revision ac89c806a9061416311e6f2bfe5d1da3886aa3ed)
++++ b/src/components/magazine.js	(date 1617775563331)
+@@ -1,32 +1,29 @@
+-import {   useSelector } from "react-redux"
+-import Good from "./Good"
++import { useSelector } from 'react-redux';
++import Good from './Good';
+ 
+ // Компонента для отрисовки всего магазина
+-const Magazine =(props)=> {
+-    //оболочка для вывода всех товаров в магазине
+-    let magazineGoods = useSelector(state =>state.goods)
+-    
+-    let goodsListMagazin = magazineGoods.map((el) => {
+-        return (
+-            <>
+-                <Good 
+-                    name={el.name} 
+-                    price={el.price} 
+-                    id={el.id} 
+-                    count={el.count} 
+-                    img={el.img}
+-                    />
+-            </>
+-        )
+-    })
++const Magazine = (props) => {
++	//оболочка для вывода всех товаров в магазине
++	let magazineGoods = useSelector(state => state.goods);
++
++	let goodsListMagazin = magazineGoods.map((el) => (
++		<Good
++			key={ el.id }
++			name={ el.name }
++			price={ el.price }
++			id={ el.id }
++			count={ el.count }
++			img={ el.img }
++		/>
++	));
+ 
+-    return (
+-        <div>
+-            <h1 className='alert alert-primary'>Магазин</h1>
+-            <div className="row row-cols-1 row-cols-sm-5">
+-                {goodsListMagazin}
+-            </div>
+-        </div>
+-    )
+-}
+-export default Magazine
+\ No newline at end of file
++	return (
++		<div>
++			<h1 className='alert alert-primary'>Магазин</h1>
++			<div className='row row-cols-1 row-cols-sm-5'>
++				{ goodsListMagazin }
++			</div>
++		</div>
++	);
++};
++export default Magazine;
+Index: db.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/db.json b/db.json
+new file mode 100644
+--- /dev/null	(date 1617694411242)
++++ b/db.json	(date 1617694411242)
+@@ -0,0 +1,14 @@
++{
++  "goods": [
++  {
++    "name": "Ложка",
++    "count": 25,
++    "price": 10
++  },
++  {
++    "name": "Вилка",
++    "count": 34,
++    "price": 13
++  }
++]
++}
+Index: src/components/Good.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/Good.js b/src/components/Good.js
+--- a/src/components/Good.js	(revision ac89c806a9061416311e6f2bfe5d1da3886aa3ed)
++++ b/src/components/Good.js	(date 1617776553913)
+@@ -1,4 +1,4 @@
+-import { useState, useEffect } from "react"
++import { useState, useEffect, useCallback } from 'react';
+ import { useDispatch, useSelector } from "react-redux"
+ import {getWishGood} from '../actions/index'
+ 
+@@ -9,33 +9,42 @@
+     const [wishPrice,setWishPrice] = useState(0)
+     const storeRest = useSelector(state => state.goods)
+     //повышение и понижение количества товаров
+-    const inc =()=> {
++    const inc = () => {
+         return setWishCount(wishCount + 1)
+     }
+-    //Добавляем проверку на равность нулю что б количество не падало меньше нуля 
++    //Добавляем проверку на равность нулю что б количество не падало меньше нуля
+     const dec =()=> {
+         if(wishCount !== 0) {
+             return setWishCount(wishCount - 1)
+         }
+     }
+     //Считаем сколько осталось в магазине (остаток рассчитывается тут что б при отпарвке товара в корзимну происходила проверка на наличие нужного количества товара на складе)
+-    let restOnStore = storeRest.find(el =>el.id === props.id).count - wishCount
++    let restOnStore = useMemo(() => storeRest.find(el =>el.id === props.id).count - wishCount, [wishCount]);
++	const isValidForm = useMemo(() => !!(login && password), [login, password]);
++
+ 
+     //добавляем проверку наличия достаточного количества товара на складе
+     useEffect(()=> {
+-            ((restOnStore) < 0) ? setCountError(true) : setCountError(false)
+-    },[wishCount,restOnStore])
+-    
++        if (restOnStore < 0 && !countError) {
++            //todo
++            setCountError(true)
++        }
++        else if (restOnStore > 0 && countError){
++            setCountError(false);
++        }
++            // () ? setCountError(true) :
++    },[wishCount,restOnStore,countError])
++
+     //перекидываем в локальный стейт общую стоимость заказа
+     useEffect(()=> {
+         setWishPrice(props.price * wishCount)
+     },[wishCount,props.price])
+ 
+     //Вызываем диспатч и обнуляем счетчик желаемого количестве товара
+-    const giveFinal =()=> {
++    const giveFinal = useCallback(()=> {
+         dispatch(getWishGood(props.name,wishCount,restOnStore,props.id,wishPrice))
+         setWishCount(0)
+-    }
++    },[wishCount, restOnStore]);
+ 
+     return (
+         <div className='w-500'>
+@@ -46,13 +55,15 @@
+                     <h5 className="card-text">Цена: {props.price}</h5>
+                     <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
+                     <p className="card-text">Цена заказа: {wishPrice}</p>
+-                    <>{countError 
+-                    ? <p className="card-text">На складе нет такого количества товаров</p>
+-                    :<p className="card-text"><button className="btn btn-outline-success" onClick={()=>giveFinal()}>В корзину</button></p>
+-                    }</>
++
++                    <p className="card-text">
++                        {countError ? 'На складе нет такого количества товаров'
++                            : <button className="btn btn-outline-success" onClick={giveFinal} />
++                        }
++                    </p>
+                 </div>
+             </div>
+         </div>
+     )
+ }
+-export default Good
+\ No newline at end of file
++export default Good
+Index: src/reducers/goodsReducer.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/reducers/goodsReducer.js b/src/reducers/goodsReducer.js
+--- a/src/reducers/goodsReducer.js	(revision ac89c806a9061416311e6f2bfe5d1da3886aa3ed)
++++ b/src/reducers/goodsReducer.js	(date 1617777010875)
+@@ -10,78 +10,90 @@
+ // Первичный Store для инициализиации приложения - пустой, далее будет заменен на ответ сервера
+ 
+ let initialState = {
+-    goods: [],
+-    // [
+-    //     {id:1, name:'Телевизор', count:10, price:100, img:tv},
+-    //     {id:2, name:'Холодильник', count:5, price:70, img:freeze},
+-    //     {id:3, name:'Машинка', count:50, price:5, img:car},
+-    //     {id:4, name:'Кукла', count:15, price:10, img:dall},
+-    //     {id:5, name:'Платье', count:10, price:25, img:dress},
+-    //     {id:6, name:'Джинсы', count:10, price:25, img:jeanse},
+-    //     {id:7, name:'Балетки', count:15, price:7, img:baletki},
+-    // ],
+-    korzina: [],
+-    globalPrice:0
+-}
++	goods: [],
++	// [
++	//     {id:1, name:'Телевизор', count:10, price:100, img:tv},
++	//     {id:2, name:'Холодильник', count:5, price:70, img:freeze},
++	//     {id:3, name:'Машинка', count:50, price:5, img:car},
++	//     {id:4, name:'Кукла', count:15, price:10, img:dall},
++	//     {id:5, name:'Платье', count:10, price:25, img:dress},
++	//     {id:6, name:'Джинсы', count:10, price:25, img:jeanse},
++	//     {id:7, name:'Балетки', count:15, price:7, img:baletki},
++	// ],
++	korzina: [],
++	globalPrice: 0
++};
+ 
+-const goodsReducer =(state = initialState,action)=> {
+-    switch (action.type) {
+-        // получаем желаемые товары с корзины и возвращаем обнавленный store
+-        case 'GET_WISH_GOOD': {
+-            // выделяем объект с совпадение по id, если его нет - пропускаем этот шаг
+-            const findDouble = state.korzina.find(el => el.id === action.newId) 
+-            // Определяем общее наличие совпадений по id в корзине
+-            const booDouble = state.korzina.some(el => el.id === action.newId)
+-            if (!booDouble) {
+-                return {
+-                    goods:[state.goods.map((element) => {
+-                        return (element.id === action.newId ? element.count = action.restStore : element)
+-                        })], 
+-                        ...state,
+-                        korzina:[...state.korzina,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
+-                        globalPrice:state.globalPrice + action.wishPrice
+-                        }
+-                    } else {
+-                        // в случае обнаружения дублеката количество товара в корзине увиличивается на количество желаемого товара тоже происходит с ценой
+-                    findDouble.count += action.wishCount
+-                    findDouble.price += action.wishPrice
+-                    return {
+-                        goods:[state.goods.map((element) => {
+-                            // ищем в массиве конкретный элемент с совпадающим id если он найден то вычетаем желаемое количество товара из позиции этого товара на складе
+-                            return (element.id === action.newId ? (element.count -= action.wishCount) : element)
+-                        })], 
+-                        // копируем state и фильтруем по неравенству id удаляя тем самым совпадающий элемент, и возвращаем его с обноавленным значением количества из переменной findDouble
+-                        ...state,
+-                        korzina:[...state.korzina.filter(el => el.id !== action.newId).concat(findDouble)],
+-                        globalPrice:state.globalPrice + action.wishPrice
+-
+-                        }  
+-                    }
+-                }
+-        // Удаляем товары из корзины           
+-        case 'REMOVE_WISH_GOOD': {
+-                // console.log(action.returnCount)
+-                console.log(action.returnId)
+-                return {
+-                    goods:[state.goods.map((element) => {
+-                        return (element.id === action.returnId ? element.count = element.count + action.returnCount : element)
+-                    })],
+-                    ...state,
+-                    korzina:[...state.korzina.filter(element => element.name !== action.returnName)],
+-                    globalPrice:state.globalPrice - action.returnPrice
+-                }   
+-            }
+-        // Заполняем Stroe данными полученными с сервера
+-        case 'GET_ALL_LIST_GOODS': {
+-            return {
+-                ...state,
+-                goods:action.goodsList
+-            }
+-        }
+-        default:
+-            return state
+-    }
+-}
++const goodsReducer = (state = initialState, action) => {
++	switch (action.type) {
++		// получаем желаемые товары с корзины и возвращаем обнавленный store
++		case 'GET_WISH_GOOD': {
++			// выделяем объект с совпадение по id, если его нет - пропускаем этот шаг
++			const findExistingIndex = state.korzina.findIndex(el => el.id === action.newId);
++			// Определяем общее наличие совпадений по id в корзине
++			const booDouble = findExistingIndex > -1;
++			let newGoods = [...state.goods];
++			if (!booDouble) {
++				//todo добавляем новый товар в корзину
++				newGoods.push({ id: action.newId, count: 32 });
++			} else {
++				newGoods[findExistingIndex].count += 1;
++			}
++
++			return {
++				...state,
++				goods: newGoods
++			};
++		}
++		// return {
++		//     goods:[state.goods.map((element) => {
++		//         return (element.id === action.newId ? element.count = action.restStore : element)
++		//         })],
++		//         ...state,
++		//         korzina:[...state.korzina,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
++		//         globalPrice:state.globalPrice + action.wishPrice
++		//         }
++		//     } else {
++		//         // в случае обнаружения дублеката количество товара в корзине увиличивается на количество желаемого товара тоже происходит с ценой
++		//     findDouble.count += action.wishCount
++		//     findDouble.price += action.wishPrice
++		//     return {
++		//         goods:[state.goods.map((element) => {
++		//             // ищем в массиве конкретный элемент с совпадающим id если он найден то вычетаем желаемое количество товара из позиции этого товара на складе
++		//             return (element.id === action.newId ? (element.count -= action.wishCount) : element)
++		//         })],
++		//         // копируем state и фильтруем по неравенству id удаляя тем самым совпадающий элемент, и возвращаем его с обноавленным значением количества из переменной findDouble
++		//         ...state,
++		//         korzina:[...state.korzina.filter(el => el.id !== action.newId).concat(findDouble)],
++		//         globalPrice:state.globalPrice + action.wishPrice
++		//
++		//         }
++		//     }
++		// }
++		// Удаляем товары из корзины
++		case 'REMOVE_WISH_GOOD': {
++			// console.log(action.returnCount)
++			console.log(action.returnId);
++			return {
++				...state,
++				globalPrice: state.globalPrice - action.returnPrice,
++				korzina: [...state.korzina.filter(element => element.name !== action.returnName)],
++				goods: state.goods.map((element) => {
++					return (element.id === action.returnId ? element.count = element.count + action.returnCount : element);
++				})
++			};
++		}
++		// Заполняем Stroe данными полученными с сервера
++		case 'GET_ALL_LIST_GOODS': {
++			return {
++				...state,
++				goods: action.goodsList
++			};
++		}
++		default:
++			return state;
++	}
++};
+ 
+ 
+-export default goodsReducer
+\ No newline at end of file
++export default goodsReducer;
