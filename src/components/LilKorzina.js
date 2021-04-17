@@ -13,12 +13,12 @@ let dispatch = useDispatch()
 
 const lilKorzinaList = lilKorzina.map((el,i) => {
     return (
-            <tr>
-                <th scope="row">{parseInt(i) + 1}</th>
-                    <td>{el.name}</td>
+            <tr className='border-bottom border-success' >
+                <th scope="row" >{parseInt(i) + 1}</th>
+                    <td className='text-left'>{el.name}</td>
                     <td>{el.count + ' шт.'}</td>
-                    <td>{el.price}</td>
-                    <td><button className='btn btn-outline-danger' onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name,el.id))}}>Х</button></td>
+                    <td>{el.price + ' $'}</td>
+                    <td><button className="btn btn-outline-danger btn-sm" onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name,el.id))}}>X</button></td>
             </tr>       
     )
 })
@@ -29,7 +29,7 @@ const lilKorzinaList = lilKorzina.map((el,i) => {
             placement='bottom'
             trigger="click"
             overlay={
-            <Popover id='popid'>
+            <Popover id='popid' className='text-center'>
             <Popover.Title as="h3">В корзине:</Popover.Title>
             <Popover.Content>
                 <table className='table'>
@@ -37,7 +37,7 @@ const lilKorzinaList = lilKorzina.map((el,i) => {
                             {lilKorzinaList}
                         </tbody>
                 </table>
-                <strong className='text-center'>{'Итого к оплате: ' + globPrice}</strong>
+                <strong className='text-center'>{'Итого к оплате: ' + globPrice + ' $'}</strong>
             </Popover.Content>
             </Popover>
       }

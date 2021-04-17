@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {getAllListGoods} from './actions/index'
 import LIlKorzina from './components/LilKorzina';
 
+
 function App() {
   // проверка на наличии товаров в корзине
   const isEmptyKorzina = useSelector(state =>state.korzina)
@@ -33,7 +34,7 @@ function App() {
           <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/check2-square.svg' alt=''/> Магазин</button>
         </NavLink>
         {/* Если товаров в корзине нет - не показыывать значок корзины */}
-        {isEmptyKorzina.length !== 0 ? <LIlKorzina className='text-right'/> : null}
+        {isEmptyKorzina.length !== 0 ? <LIlKorzina /> : null}
         </div>
         <Route exact path='/goodstore'><GoodsStore /></Route>
         <Route exact path='/magazine'><Magazine /></Route>
