@@ -14,11 +14,11 @@ let dispatch = useDispatch()
 const lilKorzinaList = lilKorzina.map((el,i) => {
     return (
             <tr className='border-bottom border-success' >
-                <th scope="row" >{parseInt(i) + 1}</th>
-                    <td className='text-left'>{el.name}</td>
-                    <td>{el.count + ' шт.'}</td>
-                    <td>{el.price + ' $'}</td>
-                    <td><button className="btn btn-outline-danger btn-sm" onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name,el.id))}}>X</button></td>
+                <th scope="row" className='align-middle'>{parseInt(i) + 1}</th>
+                    <td className='text-left align-middle'>{el.name}</td>
+                    <td className='align-middle'>{el.count + ' шт.'}</td>
+                    <td className='align-middle'>{el.price + ' $'}</td>
+                    <td className='align-middle'><button className="btn btn-outline-danger btn-sm" onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name,el.id))}}>X</button></td>
             </tr>       
     )
 })
