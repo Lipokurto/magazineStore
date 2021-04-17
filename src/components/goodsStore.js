@@ -10,8 +10,8 @@ const GoodsStore =()=> {
             <tr key={el.id}>
                 <th scope="row">{i+1}</th>
                 <td>{el.name}</td>
-                <td>{el.count} </td>
-                <td>{el.price}</td>
+                <td>{el.count + ' шт.'} </td>
+                <td>{el.price + ' $'}</td>
             </tr>
 
     )})
@@ -20,7 +20,7 @@ return (
     <div className='text-center'>
         {/* <h1 className='alert alert-primary'>Склад</h1> */}
         <table className="table table-hover">
-            <thead>
+            <thead className='border-bottom'>
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Товар</th>

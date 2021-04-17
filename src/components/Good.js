@@ -48,9 +48,9 @@ const Good =(props)=> {
                 <div className="card h-150 w-200 p-3 border border-success rounded-3">
                     <h3 className="card-title">{props.name}</h3>
                     <img src={props.img} className="p-2 h-25" alt=""></img>
-                    <h5 className="card-text">Цена: {props.price}</h5>
+                    <h5 className="card-text">Цена: {props.price  + ' $'}</h5>
                     <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
-                    <p className="card-text">Цена заказа: {wishPrice}</p>
+                    <p className="card-text">Цена заказа: {wishPrice + ' $'}</p>
                     <>{countError 
                         ? <p className="card-text">На складе нет такого количества товаров</p>
                         : <p className="card-text">
