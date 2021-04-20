@@ -11,7 +11,7 @@ let initialState = {
         {id:6, name:'Джинсы', count:10, price:25, img:'https://game-icons.net/icons/ffffff/000000/1x1/lorc/trousers.svg'},
         {id:7, name:'Балетки', count:15, price:7, img:'https://game-icons.net/icons/ffffff/000000/1x1/delapouite/ballerina-shoes.svg'},
     ],
-    korzina: [],
+    cart: [],
     globalPrice:0
 }
 
@@ -20,14 +20,14 @@ const goodsReducer =(state = initialState,action)=> {
         // получаем желаемые товары с корзины и возвращаем обнавленный store
         case 'GET_WISH_GOOD': {
             // выделяем объект с совпадение по id, если его нет - пропускаем этот шаг
-            const findDouble = state.korzina.find(el => el.id === action.newId) 
+            const findDouble = state.cart.find(el => el.id === action.newId) 
             if (!findDouble) {
                 return {
                     goods:state.goods.map((element) => {
                         return (element.id === action.newId ? element.count = action.restStore : element)
                         }), 
                         ...state,
-                        korzina:[...state.korzina,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
+                        cart:[...state.cart,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
                         globalPrice:state.globalPrice + action.wishPrice
                         }
                     } else {
@@ -41,7 +41,7 @@ const goodsReducer =(state = initialState,action)=> {
                         }), 
                         // копируем state и фильтруем по неравенству id удаляя тем самым совпадающий элемент, и возвращаем его с обноавленным значением количества из переменной findDouble
                         ...state,
-                        korzina:[...state.korzina.filter(el => el.id !== action.newId).concat(findDouble)],
+                        cart:[...state.cart.filter(el => el.id !== action.newId).concat(findDouble)],
                         globalPrice:state.globalPrice + action.wishPrice
 
                         }  
@@ -54,7 +54,7 @@ const goodsReducer =(state = initialState,action)=> {
                         return (element.id === action.returnId ? element.count = element.count + action.returnCount : element)
                     }),
                     ...state,
-                    korzina:[...state.korzina.filter(element => element.name !== action.returnName)],
+                    cart:[...state.cart.filter(element => element.name !== action.returnName)],
                     globalPrice:state.globalPrice - action.returnPrice
                 }   
             }

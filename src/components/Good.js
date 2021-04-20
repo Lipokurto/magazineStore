@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo, useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
+
 import {getWishGood} from '../actions/index'
+
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 
@@ -43,11 +45,11 @@ const Good =(props)=> {
     },[dispatch,wishPrice,props.name,wishCount,restOnStore,props.id])
 
     return (
-        <div className='w-500 text-center'>
+        <div className='p-3 w-500 text-center' >
             <div className='col-sm-12'>
                 <div className="card h-150 w-200 p-3 border border-success rounded-3">
                     <h3 className="card-title">{props.name}</h3>
-                    <img src={props.img} className="p-2 h-25" alt=""></img>
+                    <img src={props.img} className="rounded" alt="" />
                     <h5 className="card-text">Цена: {props.price  + ' $'}</h5>
                     <p className="card-text"><button className="btn btn-outline-danger" onClick={dec}>-</button>{' ' + wishCount + ' '}<button className="btn btn-outline-success" onClick={inc}>+</button></p>
                     <p className="card-text">Цена заказа: {wishPrice + ' $'}</p>

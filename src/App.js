@@ -1,19 +1,21 @@
-import './App.css';
-import GoodsStore from './components/goodsStore';
-// import Korzina from './components/korzina';
-import Magazine from './components/magazine';
-import {BrowserRouter,NavLink,Redirect,Route} from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect } from 'react';
-import axios from 'axios'
+import {BrowserRouter,NavLink,Redirect,Route} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios'
+
 import {getAllListGoods} from './actions/index'
-import LIlKorzina from './components/LilKorzina';
+
+import Magazine from './components/magazine';
+import GoodsStore from './components/goodsStore';
+import Cart from './components/Cart';
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/App.css';
 
 
 function App() {
   // проверка на наличии товаров в корзине
-  const isEmptyKorzina = useSelector(state =>state.korzina)
+  const isEmptyCart = useSelector(state =>state.cart)
 
   let dispatch = useDispatch()
   // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store 
@@ -34,7 +36,7 @@ function App() {
           <button className='btn btn-outline-secondary'><img src='https://icons.getbootstrap.com/assets/icons/check2-square.svg' alt=''/> Магазин</button>
         </NavLink>
         {/* Если товаров в корзине нет - не показыывать значок корзины */}
-        {isEmptyKorzina.length !== 0 ? <LIlKorzina /> : null}
+        {isEmptyCart.length !== 0 ? <Cart /> : null}
         </div>
         <Route exact path='/goodstore'><GoodsStore /></Route>
         <Route exact path='/magazine'><Magazine /></Route>

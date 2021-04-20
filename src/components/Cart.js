@@ -1,18 +1,21 @@
-// import Dropdown from 'react-bootstrap/Dropdown'
-import { useDispatch, useSelector } from 'react-redux'
+import { useMemo } from 'react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
 import Button from 'react-bootstrap/Button'
-import { removeWishGood } from '../actions'
-import './kor.css'
+import { useDispatch, useSelector } from 'react-redux'
 
-const LIlKorzina =() => {
+import { removeWishGood } from '../actions'
+
+import '../styles/cart.css'
+
+
+const Cart =() => {
 const globPrice = useSelector(state => state.globalPrice)
-const lilKorzina = useSelector(state => state.korzina)
+const cart = useSelector(state => state.cart)
 let dispatch = useDispatch()
 
-const lilKorzinaList = lilKorzina.map((el,i) => {
-    return (
+const cartList = useMemo(()=> (
+    cart.map((el,i) => (
             <tr className='border-bottom border-success' >
                 <th scope="row" className='align-middle'>{parseInt(i) + 1}</th>
                     <td className='text-left align-middle'>{el.name}</td>
@@ -20,8 +23,9 @@ const lilKorzinaList = lilKorzina.map((el,i) => {
                     <td className='align-middle'>{el.price + ' $'}</td>
                     <td className='align-middle'><button className="btn btn-outline-danger btn-sm" onClick={()=>{dispatch(removeWishGood(el.count,el.price,el.name,el.id))}}>X</button></td>
             </tr>       
+        )
     )
-})
+),[cart,dispatch])
 
     return (
         <div className='d-flex justify-content-center'> 
@@ -34,7 +38,7 @@ const lilKorzinaList = lilKorzina.map((el,i) => {
             <Popover.Content>
                 <table className='table'>
                         <tbody>
-                            {lilKorzinaList}
+                            {cartList}
                         </tbody>
                 </table>
                 <strong className='text-center'>{'Итого к оплате: ' + globPrice + ' $'}</strong>
@@ -49,4 +53,4 @@ const lilKorzinaList = lilKorzina.map((el,i) => {
 }
 
 
-export default LIlKorzina
+export default Cart

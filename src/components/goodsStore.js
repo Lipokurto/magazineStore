@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from "react-redux"
 
 // компонента для отрисовки скалада
 const GoodsStore =()=> {
 
     let goods = useSelector(state => state.goods)
-    let goodsListElectro = goods.map((el,i)=> {
-        return (
+    let goodsListElectro = useMemo(()=> goods.map((el,i)=> 
+        (
             <tr key={el.id}>
                 <th scope="row">{i+1}</th>
                 <td>{el.name}</td>
@@ -14,11 +14,10 @@ const GoodsStore =()=> {
                 <td>{el.price + ' $'}</td>
             </tr>
 
-    )})
+    )),[goods])
 
 return (
     <div className='text-center'>
-        {/* <h1 className='alert alert-primary'>Склад</h1> */}
         <table className="table table-hover">
             <thead className='border-bottom'>
                 <tr>

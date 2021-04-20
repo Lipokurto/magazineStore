@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { createStore} from 'redux'
 import {Provider} from 'react-redux'
+import { createStore} from 'redux'
+
 import goodsReducer from './reducers/goodsReducer';
-// import $ from 'jquery';
-// import Popper from 'popper.js';
+
+import App from './App';
+
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // создаем store и подулючаем расширение для devTools
