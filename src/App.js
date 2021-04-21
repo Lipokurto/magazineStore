@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import {BrowserRouter,NavLink,Redirect,Route} from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios'
+import {  useSelector } from 'react-redux';
+// import axios from 'axios'
 
-import {getAllListGoods} from './actions/index'
+// import {getAllListGoods} from './actions/index'
 
 import Magazine from './components/magazine';
 import GoodsStore from './components/goodsStore';
@@ -17,13 +17,13 @@ function App() {
   // проверка на наличии товаров в корзине
   const isEmptyCart = useSelector(state =>state.cart)
 
-  let dispatch = useDispatch()
-  // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store 
-  useEffect(()=> {
-    axios.get('http://localhost:3006/goods').then((res)=> {
-      dispatch(getAllListGoods(res.data))
-    })
-  },[dispatch])
+  // let dispatch = useDispatch()
+  // // используем axios для отправки get запроса на сервер и получения JSON ответа для первичного заполнения Store 
+  // useEffect(()=> {
+  //   axios.get('http://localhost:3006/goods').then((res)=> {
+  //     dispatch(getAllListGoods(res.data))
+  //   })
+  // },[dispatch])
 
   return (
     <BrowserRouter>

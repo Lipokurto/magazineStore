@@ -19,34 +19,38 @@ const goodsReducer =(state = initialState,action)=> {
     switch (action.type) {
         // получаем желаемые товары с корзины и возвращаем обнавленный store
         case 'GET_WISH_GOOD': {
-            // выделяем объект с совпадение по id, если его нет - пропускаем этот шаг
-            const findDouble = state.cart.find(el => el.id === action.newId) 
-            if (!findDouble) {
-                return {
-                    goods:state.goods.map((element) => {
-                        return (element.id === action.newId ? element.count = action.restStore : element)
-                        }), 
+            // находим индекс дубликатов на складе и в корзине
+            const indexOfExistGoodCart = state.cart.findIndex(el => el.id === action.newId)
+            const indexOfExistGoodStore = state.goods.findIndex(el => el.id === action.newId)
+            // формируем новую корзину и склад
+            const newCart = [...state.cart]
+            const newGoods = [...state.goods]
+            // ищем дублекат в корзине
+                if (indexOfExistGoodCart > -1) {
+                    // если есть дублекат то уменьшаем количество товаров на складе и увидличиваем количество товаров в корзине
+                    return {
+                        goods:newGoods.map((el,i) => 
+                        { 
+                            return i === indexOfExistGoodStore ? el.count -= action.wishCount : el 
+                        }),
+                        cart:newCart.map((el,i)=> {
+                            return i === indexOfExistGoodCart ? el.count += action.wishCount : el
+                        }),
+                        ...state,
+                        globalPrice:state.globalPrice + action.wishPrice
+                    } 
+                    // если дублеката нет то уменьшаем количетсво товаров на складе и добавляем товар в конец списка корзины
+                } else {
+                    return {
+                        goods:newGoods.map((el,i) => { 
+                            return i === indexOfExistGoodStore ? el.count -= action.wishCount : el 
+                        }),
                         ...state,
                         cart:[...state.cart,{id:action.newId,name:action.wishName,count:action.wishCount,price:action.wishPrice}],
                         globalPrice:state.globalPrice + action.wishPrice
-                        }
-                    } else {
-                        // в случае обнаружения дублеката количество товара в корзине увиличивается на количество желаемого товара тоже происходит с ценой
-                    findDouble.count += action.wishCount
-                    findDouble.price += action.wishPrice
-                    return {
-                        goods:state.goods.map((element) => {
-                            // ищем в массиве конкретный элемент с совпадающим id если он найден то вычетаем желаемое количество товара из позиции этого товара на складе
-                            return (element.id === action.newId ? (element.count -= action.wishCount) : element)
-                        }), 
-                        // копируем state и фильтруем по неравенству id удаляя тем самым совпадающий элемент, и возвращаем его с обноавленным значением количества из переменной findDouble
-                        ...state,
-                        cart:[...state.cart.filter(el => el.id !== action.newId).concat(findDouble)],
-                        globalPrice:state.globalPrice + action.wishPrice
-
-                        }  
-                    }
+                    }  
                 }
+            } 
         // Удаляем товары из корзины           
         case 'REMOVE_WISH_GOOD': {
                 return {
